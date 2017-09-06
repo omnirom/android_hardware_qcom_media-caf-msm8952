@@ -5040,7 +5040,6 @@ void omx_vdec::free_extradata()
         close(drv_ctx.extradata_info.ion.fd_ion_data.fd);
         free_ion_memory(&drv_ctx.extradata_info.ion);
     }
-    memset(&drv_ctx.extradata_info, 0, sizeof(drv_ctx.extradata_info));
 #endif
     if (m_other_extradata) {
         free(m_other_extradata);
@@ -10117,7 +10116,7 @@ void omx_vdec::handle_extradata(OMX_BUFFERHEADERTYPE *p_buf_hdr)
                             DEBUG_PRINT_ERROR("Unsupported framepacking type");
                             stereo_output_mode = HAL_NO_3D;
                     }
-                    DEBUG_PRINT_LOW("setMetaData FRAMEPACKING : fpa_type = %lu, content_interpretation_type = %lu, stereo_output_mode= %d",
+                    DEBUG_PRINT_LOW("setMetaData FRAMEPACKING : fpa_type = %u, content_interpretation_type = %u, stereo_output_mode= %d",
                         s3d_frame_packing_payload->fpa_type, s3d_frame_packing_payload->content_interpretation_type, stereo_output_mode);
                     if (client_extradata & OMX_FRAMEPACK_EXTRADATA) {
                         append_framepack_extradata(p_extra, s3d_frame_packing_payload);
@@ -11713,7 +11712,7 @@ OMX_ERRORTYPE omx_vdec::describeColorFormat(OMX_PTR pParam) {
     DEBUG_PRINT_LOW("  FrameWidth x FrameHeight : %d x %d", params->nFrameWidth, params->nFrameHeight);
     DEBUG_PRINT_LOW("  YWidth x YHeight : %d x %d", img->mWidth, img->mHeight);
     for (size_t i = 0; i < img->mNumPlanes; ++i) {
-        DEBUG_PRINT_LOW("    Plane[%d] : offset=%d / xStep=%d / yStep = %d",
+        DEBUG_PRINT_LOW("    Plane[%zu] : offset=%d / xStep=%d / yStep = %d",
                 i, img->mPlane[i].mOffset, img->mPlane[i].mColInc, img->mPlane[i].mRowInc);
     }
     return OMX_ErrorNone;
